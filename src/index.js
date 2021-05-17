@@ -16,9 +16,10 @@ const {
 let targetDate = null;
 
 class CountdownTimer {
-  constructor() {
+  constructor({ onTick }) {
     this.intervalId = null;
     this.isActive = false;
+    this.onTick = onTick;
   }
   start() {
     if (this.isActive) {
@@ -31,14 +32,12 @@ class CountdownTimer {
     this.isActive = true;
     startBtn.disabled = true;
     pauseBtn.disabled = false;
+
     this.intervalId = setInterval(() => {
       const currentTime = Date.now();
       const deltaTime = targetDate - currentTime;
-      const { days, hours, mins, secs } = getTimeComponents(deltaTime);
-      daysSpan.textContent = days;
-      hoursSpan.textContent = hours + ':';
-      minsSpan.textContent = mins + ':';
-      secsSpan.textContent = secs;
+      const time = getTimeComponents(deltaTime);
+      this.onTick(time);
     }, 1000);
   }
   pause() {
@@ -57,6 +56,7 @@ class CountdownTimer {
 
 const timer = new CountdownTimer({
   targetDate: new Date(),
+  onTick: updateClockface,
 });
 
 function defaultState() {
@@ -72,6 +72,13 @@ function defaultState() {
 
 function pad(value) {
   return String(value).padStart(2, '0');
+}
+
+function updateClockface({ days, hours, mins, secs }) {
+  daysSpan.textContent = days;
+  hoursSpan.textContent = hours + ':';
+  minsSpan.textContent = mins + ':';
+  secsSpan.textContent = secs;
 }
 function getTimeComponents(currentTime) {
   const days = pad(Math.floor(currentTime / (1000 * 60 * 60 * 24)));
