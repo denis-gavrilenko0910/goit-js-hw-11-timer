@@ -7,24 +7,34 @@
 }
 
 body {
+  height: 100vh;
   font-family: 'Courier New', Courier, monospace;
-  padding: 200px 0;
+
   background-image: url('./images/table.jpg');
   background-repeat: no-repeat;
   background-size: cover;
 }
+@media screen and (max-width: 768px) {
+  body {
+    padding: 20px;
+  }
+}
 .box {
-  position: absolute;
-  left: 25%;
-  bottom: 10%;
   border-radius: 15px;
   box-shadow: #4e4e4e 3px 2px 5px 3px;
   width: fit-content;
 }
+@media screen and (min-width: 768px) {
+  .box {
+    position: absolute;
+    left: 30%;
+    bottom: 7%;
+  }
+}
 .timer {
   font-size: 2rem;
 
-  width: 350px;
+  width: 280px;
   height: 300px;
   background-color: #ececec;
 
@@ -33,6 +43,11 @@ body {
   box-shadow: #b0b0b0 inset 0px 0px 7px 7px;
   /* margin: 0 auto; */
   padding: 20px;
+}
+@media screen and (min-width: 485px) {
+  .timer {
+    width: 350px;
+  }
 }
 .field {
   margin: 0 auto;
@@ -81,6 +96,12 @@ body {
 
   font-size: 24px;
 }
+@media screen and (max-width: 485px) {
+  .buttons {
+    width: 60px;
+    font-size: 17px;
+  }
+}
 .buttons:hover,
 .buttons:focus {
   background-color: #9e9e9e;
@@ -92,6 +113,7 @@ body {
   background-color: whitesmoke;
 }
 .input-text {
+  display: block;
   padding: 7px 5px;
   font-size: 15px;
   border: 2px solid wheat;
